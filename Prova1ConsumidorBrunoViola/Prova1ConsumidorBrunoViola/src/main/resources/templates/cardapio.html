@@ -1,0 +1,77 @@
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+        margin: 0;
+        padding: 0;
+    }
+    .title {
+        text-align: center;
+        background-color: #DC143C;
+        color: white;
+        padding: 20px;
+        margin-bottom: 20px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+    th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+    th {
+        background-color: #f2f2f2;
+    }
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+    tr:hover {
+        background-color: #ddd;
+    }
+    .pedir {
+        text-decoration: none;
+        padding: 5px 10px;
+        border-radius: 4px;
+        background-color: #DC143C;
+        color: white;
+        margin-right: 5px;
+    }
+    .paginaInicial, .pedidos, .lista{
+        display: block;
+        text-align: center;
+        margin-top: 20px;
+    }
+</style>
+<title>Cardápio</title>
+<div th:switch="${itemsCardapio}">
+    <h2 th:case="null">Ainda não há itens de cardápio para o <span th:text="${restaurante.nome}"></span>!</h2>
+    <div th:case="*">
+        <h2 class="title">Itens do Cardápio - Restaurante: <span th:text="${restaurante.nome}"></span></h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Descrição</th>
+                <th>Preço</th>
+                <th>Pedir</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="itemCardapio : ${itemsCardapio}">
+                <td th:text="${itemCardapio.nome}"></td>
+                <td th:text="${itemCardapio.descricao}"></td>
+                <td th:text="${itemCardapio.preco}"></td>
+                <td><a th:href="@{/pedir/{id}(id=${itemCardapio.id}, idRestaurante=${restaurante.id})}" class="pedir">Pedir</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <p><a href="/pedidos" class="pedidos">Visualizar pedidos</a></p>
+    <p><a href="/restaurantes" class="lista">Voltar à lista de restaurantes</a></p>
+    <p><a href="/index" class="paginaInicial">Página Inicial</a></p>
+</div>

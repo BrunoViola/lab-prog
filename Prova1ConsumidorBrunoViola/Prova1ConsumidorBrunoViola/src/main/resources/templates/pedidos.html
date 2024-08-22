@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Pedidos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+        .title {
+            text-align: center;
+            background-color: #DC143C;
+            color: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #ddd;
+        }
+        .remover, .aumentar, .diminuir {
+            text-decoration: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            background-color: #DC143C;
+            color: white;
+            margin-right: 5px;
+        }
+        .remover:hover, .aumentar:hover, .diminuir:hover{
+            background-color: #B3002D;
+        }
+        .lista, .pagina-inicial, .voltar{
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .preco-total {
+            font-weight: bold;
+            color: #DC143C;
+            font-size: 20px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+            margin: 0 10px;
+        }
+
+
+
+    </style>
+</head>
+<body>
+<h2 class="title">Lista de Pedidos</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Restaurante</th>
+            <th>Nome</th>
+            <th>Descrição</th>
+            <th>Preco</th>
+            <th>Quantidade</th>
+            <th>Remover</th>
+            <th>Aumentar</th>
+            <th>Diminuir</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="itemCardapio:${sessionPedidos}">
+            <td th:text="${itemCardapio.restaurante.nome}"></td>
+            <td th:text="${itemCardapio.nome}"></td>
+            <td th:text="${itemCardapio.descricao}"></td>
+            <td th:text="${itemCardapio.preco}"></td>
+            <td th:text="${itemCardapio.quantidade}"></td>
+            <td><a th:href="@{/pedidos/remover/{id}(id=${itemCardapio.id})}" class="remover">Remover</a></td>
+            <td><a th:href="@{/pedidos/aumentar/{id}(id=${itemCardapio.id})}" class="aumentar">Aumentar</a></td>
+            <td><a th:href="@{/pedidos/diminuir/{id}(id=${itemCardapio.id})}" class="diminuir">Diminuir</a></td>
+        </tr>
+        </tbody>
+    </table>
+<p class="preco-total">Preço Total = <span th:text="${valorTotal}"></span></p>
+<a href="#" onclick="history.back(); return false;" class="voltar">Voltar ao cardápio</a>
+<p><a href="/restaurantes" class="lista">Listar todos os restaurantes</a></p>
+<p><a href="/index" class="pagina-inicial">Página Inicial</a></p>
+</body>
+</html>
