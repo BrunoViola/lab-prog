@@ -1,0 +1,20 @@
+<title>Atualizar Item</title>
+
+<form action="#"
+      th:action="@{/editar-itemCardapio/{id}(id=${itemCardapio.id})}"
+      th:object="${itemCardapio}"
+      method="post">
+    <label for="nome">Nome:</label>
+    <input type="text"th:field="*{nome}"id="nome">
+    <span th:if="${#fields.hasErrors('nome')}"th:errors="*{nome}"></span>
+
+    <label for="descricao">Nome:</label>
+    <input type="text"th:field="*{descricao}" id="descricao">
+    <span th:if="${#fields.hasErrors('descricao')}"th:errors="*{descricao}"></span>
+
+    <label for="preco">Preço:</label>
+    <input type="text" th:field="*{preco}" id="preco">
+    <span th:if="${#fields.hasErrors('preco')}" th:errors="*{preco}"></span>
+    <input type="hidden" th:field="*{restaurante.id}" />
+    <input type="submit" value="Atualizar">
+</form>

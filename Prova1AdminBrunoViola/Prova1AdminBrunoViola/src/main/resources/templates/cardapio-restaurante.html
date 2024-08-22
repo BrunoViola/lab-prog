@@ -1,0 +1,80 @@
+<style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+    .title {
+        text-align: center;
+        background-color: #4CAF50;
+        color: white;
+        padding: 20px;
+        margin-bottom: 20px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+    th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+    th {
+        background-color: #f2f2f2;
+    }
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+    tr:hover {
+        background-color: #ddd;
+    }
+    .edit, .remove, .menu {
+        text-decoration: none;
+        padding: 5px 10px;
+        border-radius: 4px;
+        background-color: #4CAF50;
+        color: white;
+        margin-right: 5px;
+    }
+    .add-new, .retornar{
+        display: block;
+        text-align: center;
+        margin-top: 20px;
+    }
+    .edit:hover, .remove:hover, .menu:hover {
+        background-color: #45a049;
+    }
+</style>
+
+<title>Cardápio</title>
+
+<div th:switch="${itemsCardapio}">
+    <h2 th:case="null">Ainda não há itens de cardápio para o <span th:text="${restaurante.nome}"></span>!</h2>
+    <div th:case="*">
+        <h2 class="title">Itens do Cardápio - Restaurante: <span th:text="${restaurante.nome}"></span></h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Descrição</th>
+                <th>Preço</th>
+                <th>Remover</th>
+                <th>Editar</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="itemCardapio : ${itemsCardapio}">
+                <td th:text="${itemCardapio.nome}"></td>
+                <td th:text="${itemCardapio.descricao}"></td>
+                <td th:text="${itemCardapio.preco}"></td>
+                <td><a th:href="@{/remover-itemCardapio/{id}(id=${itemCardapio.id})}" class="remove">Remover</a></td>
+                <td><a th:href="@{/editar-itemCardapio/{id}(id=${itemCardapio.id})}" class="edit">Editar</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <p><a th:href="@{'/novo-itemCardapio/' + ${restaurante.id}}" class="add-new">Adicionar um novo item ao cardápio</a></p>
+    <p><a href="/index" class="retornar">Voltar à lista de restaurantes</a></p>
+</div>

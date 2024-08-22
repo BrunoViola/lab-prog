@@ -1,0 +1,12 @@
+<title>Atualizar Restaurante</title>
+
+<form action="#"
+  th:action="@{/atualizar/{id}(id=${restaurante.id})}"
+  th:object="${restaurante}"
+  method="post">
+<label for="nome">Nome:</label>
+<input type="text"th:field="*{nome}"id="nome">
+<span th:if="${#fields.hasErrors('nome')}"th:errors="*{nome}"></span>
+
+<input type="submit" value="Atualizar">
+</form>

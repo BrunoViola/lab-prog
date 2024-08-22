@@ -1,0 +1,76 @@
+<style>
+  body {
+    font-family: Arial, sans-serif;
+  }
+  .title {
+    text-align: center;
+    background-color: #4CAF50;
+    color: white;
+    padding: 20px;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+  th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  th {
+    background-color: #f2f2f2;
+  }
+  tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  tr:hover {
+    background-color: #ddd;
+  }
+  .edit, .remove, .menu {
+    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    background-color: #4CAF50;
+    color: white;
+    margin-right: 5px;
+  }
+  .add-new {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+  }
+  .edit:hover, .remove:hover, .menu:hover {
+    background-color: #45a049;
+  }
+</style>
+
+<title>Lista de Restaurantes</title>
+
+<div th:switch="${restaurantes}">
+  <h2 th:case="null">Ainda não há restaurantes!</h2>
+  <div th:case="*">
+    <h2 class="title">Lista de Restaurantes</h2>
+    <table>
+      <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Editar</th>
+        <th>Remover</th>
+        <th>Cardápio</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="restaurante : ${restaurantes}">
+        <td th:text="${restaurante.nome}"></td>
+        <td><a th:href="@{/editar/{id}(id=${restaurante.id})}" class="edit">Editar</a></td>
+        <td><a th:href="@{/remover/{id}(id=${restaurante.id})}" class="remove">Remover</a></td>
+        <td><a th:href="@{/cardapio-restaurante/{id}(id=${restaurante.id})}" class="menu">Cardápio</a></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <p><a href="/novo-restaurante" class="add-new">Adicionar um novo restaurante</a></p>
+</div>
