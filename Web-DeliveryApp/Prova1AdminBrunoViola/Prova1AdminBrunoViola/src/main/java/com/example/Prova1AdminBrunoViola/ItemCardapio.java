@@ -20,7 +20,7 @@ public class ItemCardapio {
     private Integer quantidade;
     private String descricao;
 
-    @DecimalMin(value = "0.0", message = "O preço deve ser um número positivo")
+    @DecimalMin(value = "0.1", message = "O preço deve ser maior que zero")
     private double preco;
 
     public int getId() {
